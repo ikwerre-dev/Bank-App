@@ -45,10 +45,10 @@ const RecoverPassword = () => {
     };
 
     return (
-        <div className="min-h-screen bg-indigo-100 p-4">
+        <div className="min-h-screen bg-emerald-100 p-4">
             <ToastContainer /> {/* Toast container to show notifications */}
             <main className="flex-grow my-[5rem] bg-white p-[2.5rem] rounded rounded-2xl">
-                <h2 className="text-2xl font-bold text-indigo-500 mb-6">Password Recovery</h2>
+                <h2 className="text-2xl font-bold text-emerald-500 mb-6">Password Recovery</h2>
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
@@ -58,13 +58,13 @@ const RecoverPassword = () => {
                             value={formData.email}
                             onChange={handleChange} // Capture input value
                             placeholder="e.g. email@example.com"
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${loading ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${loading ? 'bg-emerald-400' : 'bg-emerald-600 hover:bg-emerald-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500`}
                         disabled={loading} // Disable the button while loading
                     >
                         {loading ? 'Sending...' : 'Send Recovery Email'}
@@ -73,7 +73,7 @@ const RecoverPassword = () => {
                 <div className="mt-6 text-center">
                     <p className="text-sm text-gray-500">
                         Remember your password?{' '}
-                        <Link to="/login" className="text-indigo-700">
+                        <Link to="/login" className="text-emerald-700">
                             Login
                         </Link>
                     </p>

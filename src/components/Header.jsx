@@ -48,17 +48,17 @@ const Header = () => {
 
 
     return (
-        <header className="flex justify-between sticky z-40 top-0 bg-[#270685] items-center p-4">
+        <header className="flex justify-between sticky z-40 top-0  bg-white items-center p-4">
             <div className="flex items-center space-x-3">
                 <img src={userImage} alt="User" className="w-10 h-10 rounded-full" />
                 <div>
 
-                    <p className="text-xs opacity-80">Hello,</p>
+                    <p className="text-xs opacity-80 font-bold text-black">Hello,</p>
                     {loading ? (
                         <p className="text-xs opacity-80"> </p>
                     ) : (
                         <>
-                            <h1 className="text-sm font-bold">{userData?.first_name || 'User'}!</h1>
+                            <h1 className="text-sm  text-black font-bold">{userData?.first_name || 'User'}!</h1>
                         </>
                     )}
 
@@ -67,7 +67,7 @@ const Header = () => {
                 </div>
             </div>
             <Link to='/settings' className="p-2">
-                <Settings className="w-6 h-6" />
+                <Settings className="w-6 text-black h-6" />
             </Link>
         </header>
     );

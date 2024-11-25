@@ -3,9 +3,8 @@ import { ChevronLeft, Eye } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const CreateAccountForm = () => {
     const { data } = useParams();
@@ -41,12 +40,12 @@ const CreateAccountForm = () => {
             [id]: value
         });
     };
-
+ 
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);  // Set loading to true when form is submitted
-        // console.log(`${import.meta.env.VITE_API_BASE_URL}register`);
-
+        setLoading(true); // Set loading to true when form is submitted
+    
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}register`, {
                 first_name: formData.firstName,
@@ -57,28 +56,39 @@ const CreateAccountForm = () => {
                 referral: formData.referral,
                 phone: formData.phone
             });
-
-            // console.log(response.data);
-
+    
+            console.log(response.data);
+    
             if (response.data.status == 1) {
-                toast.success(response.data.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.data.message,
+                });
                 Cookies.set('jwt', response.data.jwt);
                 Cookies.set('refresh_token', response.data.refresh_token);
                 navigate('/dashboard');
             } else {
-                toast.error(response.data.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.data.message,
+                });
             }
         } catch (error) {
-            toast.error('Registration failed. Please try again.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Registration failed. Please try again.',
+            });
         } finally {
-            setLoading(false);  // Set loading to false after the response is received
+            setLoading(false); // Set loading to false after the response is received
         }
     };
 
     return (
-        <div className="flex-col min-h-screen align-center bg-indigo-100 p-4">
-            <ToastContainer />
-            <main className="flex-grow my-[5rem] bg-white p-[2.5rem] rounded rounded-2xl">
+        <div className="flex-col min-h-screen align-center bg-emerald-100 p-4">
+          <main className="flex-grow my-[5rem] bg-white p-[2.5rem] rounded rounded-2xl">
                 <h2 className="text-2xl font-bold mb-6">Create Account
                 </h2>
                 <form className="space-y-4" onSubmit={handleSubmit}>
@@ -90,7 +100,7 @@ const CreateAccountForm = () => {
                             value={formData.firstName}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
 
@@ -102,7 +112,7 @@ const CreateAccountForm = () => {
                             value={formData.lastName}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
 
@@ -114,7 +124,7 @@ const CreateAccountForm = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
 
@@ -126,7 +136,7 @@ const CreateAccountForm = () => {
                             value={formData.phone}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
                     {data && <div>
@@ -137,7 +147,7 @@ const CreateAccountForm = () => {
                             readOnly
                             value={formData.referral}
                             disabled={true}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>}
 
@@ -149,7 +159,7 @@ const CreateAccountForm = () => {
                             value={formData.password} 
                             onChange={handleChange} 
                             required 
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
                     <div>
@@ -160,13 +170,13 @@ const CreateAccountForm = () => {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={loading}  // Disable button while loading
                     >
                         {loading ? 'Loading...' : 'Create a new account'}
@@ -174,7 +184,7 @@ const CreateAccountForm = () => {
                 </form>
 
                 <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-500">Already have an account? <Link to="/login" className="text-indigo-700">Login</Link></p>
+                    <p className="text-sm text-gray-500">Already have an account? <Link to="/login" className="text-emerald-700">Login</Link></p>
                 </div>
             </main>
         </div >

@@ -70,11 +70,11 @@ const History = () => {
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
           <h3 className="font-bold">Latest Transactions</h3>
-          <Link to={'/history'} className="text-indigo-600 text-sm">View all</Link>
+          <Link to={'/history'} className="text-emerald-600 text-sm">View all</Link>
         </div>
         {UserTransactions.length > 0 ? (
           UserTransactions.map((transaction, index) => (
-            <div key={index} className="flex items-center justify-between py-2" onClick={() => setSelectedTransaction(transaction)}>
+            <div key={index} className="flex bg-white mt-2 px-5 rounded-l items-center justify-between py-3" onClick={() => setSelectedTransaction(transaction)}>
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
                   <span className="text-lg">{transaction.type == 1 ? <Plus size={20} /> : <ArrowDown size={20} />}</span>

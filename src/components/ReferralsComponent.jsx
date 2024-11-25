@@ -34,8 +34,8 @@ const ReferralsComponent = () => {
                     className="flex sticky left-0 bg-white pr-2 rounded-lg flex-col items-center"
                     onClick={() => setShowPopup(true)} 
                 >
-                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-1">
-                        <span className="text-2xl text-indigo-600"><Link2 /></span>
+                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-1">
+                        <span className="text-2xl text-emerald-600"><Link2 /></span>
                     </div>
                     <span className="text-xs">Link</span>
                 </button>
@@ -67,7 +67,7 @@ const ReferralsComponent = () => {
                             </button>
                             <button
                                 onClick={copyToClipboard}
-                                className={`bg-indigo-600 text-white px-4 py-2 rounded-md transition-transform duration-200 ${copied ? 'scale-105' : ''}`}
+                                className={`bg-emerald-600 text-white px-4 py-2 rounded-md transition-transform duration-200 ${copied ? 'scale-105' : ''}`}
                             >
                                 {copied ? 'Copied!' : 'Copy Link'}
                             </button>

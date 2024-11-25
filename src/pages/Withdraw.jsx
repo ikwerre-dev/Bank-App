@@ -175,7 +175,7 @@ const Withdraw = () => {
     }
 
     return (
-        <div className="flex flex-col h-screen mb-[5rem] bg-[#270685] text-white">
+        <div className="flex flex-col h-screen mb-[5rem] bg-[#233547] text-white">
             <BalanceCard amount={userData ? userData.balance : 0} type={2} />
             {showConfetti && <Confetti />}
 
@@ -270,7 +270,7 @@ const Withdraw = () => {
                                                             </>
                                                         ) : ''}
                                                         <button
-                                                            className={`w-full px-4 py-2 mt-4 text-sm text-white  ${DepositStatus.is_withdrawable == 1 && SubmitButtonDisabled == false ? '' : 'opacity-50'}  bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
+                                                            className={`w-full px-4 py-2 mt-4 text-sm text-white  ${DepositStatus.is_withdrawable == 1 && SubmitButtonDisabled == false ? '' : 'opacity-50'}  bg-emerald-600 rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2`}
                                                             disabled={DepositStatus.is_withdrawable !== 1 || SubmitButtonDisabled}
                                                             onClick={handleWithdrawal} // Call handleWithdrawal on click
                                                         >
