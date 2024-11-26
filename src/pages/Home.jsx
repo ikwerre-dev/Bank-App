@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link2 } from "lucide-react";
+import { Ellipsis, Link2 } from "lucide-react";
 import user from "../assets/user.png";
 import TransactionHistory from "../components/TransactionHistory";
 import BalanceCard from "../components/BalanceCard";
@@ -18,50 +18,62 @@ import {
   PlusCircle,
   MoreHorizontal,
 } from "lucide-react";
-
+import {
+  Phone,
+  Music,
+  Tv,
+  CreditCard,
+  Droplets,
+  PlayCircle,
+  ShoppingCart,
+  CheckCircle,
+} from "lucide-react";
 const BankingHomeScreen = () => {
   const { userData, loading, jwt } = useUserData(); // Access the user data and loading state
   const [DepositStatus, setDepositStatus] = useState("");
+  
+  
+  
   const services = [
-    {
-      icon: <Smartphone className="h-6 w-6" />,
-      label: "Recharge",
-      bgColor: "bg-green-100",
-    },
-    {
-      icon: <Receipt className="h-6 w-6" />,
-      label: "Bill Pay",
-      bgColor: "bg-yellow-100",
-    },
-    {
-      icon: <Building2 className="h-6 w-6" />,
-      label: "Bank Transfer",
-      bgColor: "bg-rose-100",
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      label: "Savings",
-      bgColor: "bg-purple-100",
-    },
     {
       icon: <Zap className="h-6 w-6" />,
       label: "Electricity",
-      bgColor: "bg-red-100",
-    },
-    {
-      icon: <Film className="h-6 w-6" />,
-      label: "Movie",
-      bgColor: "bg-blue-100",
-    },
-    {
-      icon: <PlusCircle className="h-6 w-6" />,
-      label: "Add Money",
-      bgColor: "bg-green-100",
-    },
-    {
-      icon: <MoreHorizontal className="h-6 w-6" />,
-      label: "Others",
       bgColor: "bg-yellow-100",
+    },
+    {
+      icon: <Droplets className="h-6 w-6" />,
+      label: "Water",
+      bgColor: "bg-blue-300",
+    },
+    {
+      icon: <PlayCircle className="h-6 w-6" />,
+      label: "Netflix",
+      bgColor: "bg-red-200",
+    },
+    {
+      icon: <ShoppingCart className="h-6 w-6" />,
+      label: "Amazon Prime",
+      bgColor: "bg-orange-100",
+    },
+    {
+      icon: <PlayCircle className="h-6 w-6" />,
+      label: "Disney+",
+      bgColor: "bg-blue-200",
+    },
+    {
+      icon: <Tv className="h-6 w-6" />,
+      label: "Apple TV",
+      bgColor: "bg-gray-100",
+    },
+    {
+      icon: <Music className="h-6 w-6" />,
+      label: "Spotify",
+      bgColor: "bg-green-200",
+    },
+    {
+      icon: <Ellipsis className="h-6 w-6" />,
+      label: "More",
+      bgColor: "bg-blue-300",
     },
   ];
 
@@ -113,7 +125,7 @@ const BankingHomeScreen = () => {
             {services.map((service, index) => (
               <Link
                 key={index}
-                to={`/services/${service.label.toLowerCase().replace(" ", "-")}`}
+                to={`/pay`}
                 className="flex flex-col items-center justify-center gap-2"
               >
                 <div
@@ -128,7 +140,7 @@ const BankingHomeScreen = () => {
             ))}
           </div>
           <div className="mt-[2rem] py-5">
-            <TransactionHistory />
+            <TransactionHistory type={2} />
           
           </div>
         </div>

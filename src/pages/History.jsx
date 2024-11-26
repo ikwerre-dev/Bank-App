@@ -49,7 +49,7 @@ const History = () => {
       
       <div className="bg-white text-black p-6 px-6 rounded-t-3xl mt-4 flex-grow">
         <div className="mb-4">
-        <TransactionHistory />
+        <TransactionHistory type={1} />
 
         </div>
       </div>

@@ -18,6 +18,7 @@ import Logout from "./pages/Logout";
 import IntroPage from "./pages/Intro";
 import Reset from "./pages/Reset";
 import SendPage from "./pages/Send";
+import Pay from "./pages/pay";
 // const jwt = Cookies.get('jwt'); // Check if JWT exists
 
 const PrivateRoute = ({ element }) => {
@@ -63,6 +64,7 @@ const App = () => {
           />
 
           <Route path="/earn" element={<PrivateRoute element={<Earn />} />} />
+          <Route path="/pay" element={<PrivateRoute element={<Pay />} />} />
           <Route
             path="/splash"
             element={<PrivateRoute element={<ShareButton />} />}

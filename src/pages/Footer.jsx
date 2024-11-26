@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Plus, Clock, MoreHorizontal, ArrowUp, DollarSign, ArrowDown } from 'lucide-react';
+import { Home, Plus, Clock, MoreHorizontal, ArrowUp, DollarSign, ArrowDown, HistoryIcon, CreditCard } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <nav className="fixed bottom-0 bg-white w-full text-gray-500 z-40 flex justify-around py-2">
+        <nav className="fixed bottom-0 bg-white w-full text-gray-500 z-40 flex justify-around pt-2 pb-3 shadow-inner ">
             <NavLink
                 to="/"
                 className={({ isActive }) => `flex flex-col items-center ${isActive ? 'text-emerald-600' : ''}`}>
@@ -18,18 +18,19 @@ const Footer = () => {
                 <ArrowUp className="w-6 h-6" />
                 <span className="text-xs">Send</span>
             </NavLink>
+            
             <NavLink
-                to="/withdraw"
+                to="/pay"
                 className={({ isActive }) => `flex flex-col items-center ${isActive ? 'text-emerald-600' : ''}`}>
-                <ArrowDown className="w-6 h-6" />
-                <span className="text-xs">Withdraw</span>
+                <CreditCard className="w-6 h-6" />
+                <span className="text-xs">Pay</span>
             </NavLink>
-
+            
             <NavLink
-                to="/earn"
+                to="/history"
                 className={({ isActive }) => `flex flex-col items-center ${isActive ? 'text-emerald-600' : ''}`}>
-                <DollarSign className="w-6 h-6" />
-                <span className="text-xs">Earn</span>
+                <HistoryIcon className="w-6 h-6" />
+                <span className="text-xs">History</span>
             </NavLink>
 
             <NavLink
