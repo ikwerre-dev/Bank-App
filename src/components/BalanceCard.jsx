@@ -75,7 +75,7 @@ const BalanceCard = ({ type }) => {
           />
         )}
       </div>
-      {type === 1 ? (
+      {type == 1 ? (
         <div className="flex justify-around">
           <Link to="/deposit" className="flex flex-col items-center">
             <div className="p-3 bg-[#233547] rounded-full">

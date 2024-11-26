@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import { Zap, Phone, Music, Tv, CreditCard, Droplets, PlayCircle, ShoppingCart, CheckCircle } from 'lucide-react';
 import Swal from "sweetalert2";
+import SuspendedAccountPage from "../components/Suspension.jsx";
 
 const Pay = () => {
   const { userData, loading, jwt } = useUserData();
@@ -35,7 +36,7 @@ const Pay = () => {
        timer = setInterval(() => {
          setCountdown((prevCount) => prevCount - 1);
        }, 1000);
-     } else if (countdown === 0) {
+     } else if (countdown == 0) {
        setShowConfetti(false);
        setShowSuccess(false);
        navigate("/dashboard");
@@ -143,7 +144,7 @@ const Pay = () => {
         },
       );
       console.log(response.data)
-      if (response.data.status === 1) {
+      if (response.data.status == 1) {
         setShowConfetti(true);
         setShowSuccess(true);
         setTimeout(() => {
@@ -170,8 +171,8 @@ const Pay = () => {
       [name]: value,
     }));
 
-    if (name === 'package' && streamingPackages[paymentType]) {
-      const selectedPackage = streamingPackages[paymentType].find(pkg => pkg.id === value);
+    if (name == 'package' && streamingPackages[paymentType]) {
+      const selectedPackage = streamingPackages[paymentType].find(pkg => pkg.id == value);
       if (selectedPackage) {
         setFormData(prevState => ({
           ...prevState,
@@ -209,7 +210,7 @@ const Pay = () => {
           </p>
           <div className="bg-gray-100 p-4 rounded-lg mb-4">
             <p className="text-sm text-gray-600">
-              For: {paymentTypes.find(type => type.value === paymentType)?.label}
+              For: {paymentTypes.find(type => type.value == paymentType)?.label}
             </p>
             <p className="text-xs text-gray-500 mt-1">{formData.description}</p>
           </div>
@@ -239,168 +240,175 @@ const Pay = () => {
 
   return (
     <div className="flex flex-col h-screen mb-20 bg-[#233547] text-white">
-      <BalanceCard type={2} />
-      {showConfetti && <Confetti />}
-      {showSuccess && <SuccessOverlay />}
+     
+      {userData && userData.status == 1 ? (
+        <SuspendedAccountPage />
+      ) : (
+        <>
+          <BalanceCard type={2} />
+          {showConfetti && <Confetti />}
+          {showSuccess && <SuccessOverlay />}
 
-      <div className="bg-white text-black p-4 px-6 pb-[6rem] rounded-t-3xl mt-4 flex-grow">
-        <h3 className="font-bold mb-4">VTU Payment</h3>
-        <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Payment Type
-            </label>
-            {showOptions ? (
-              <div className="grid grid-cols-2 gap-2">
-                {paymentTypes.map((type) => (
-                  <button
-                    key={type.value}
-                    onClick={() => handlePaymentTypeSelect(type.value)}
-                    className={`flex items-center justify-center p-3 rounded-lg ${type.color} transition-all duration-300 transform hover:scale-105`}
-                  >
-                    <type.icon className="w-5 h-5 mr-2" />
-                    <span className="text-sm">{type.label}</span>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="flex justify-between items-center p-3 rounded-lg bg-gray-100">
-                <div className="flex items-center">
-                  {React.createElement(
-                    paymentTypes.find((t) => t.value === paymentType).icon,
-                    { className: "w-5 h-5 mr-2" },
-                  )}
-                  <span className="text-sm">
-                    {paymentTypes.find((t) => t.value === paymentType).label}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setShowOptions(true)}
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  Change
-                </button>
-              </div>
-            )}
-          </div>
-
-          {paymentType && (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {['electricity', 'water'].includes(paymentType) && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company
-                  </label>
-                  <select
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-                    required
-                  >
-                    <option value="">Select a company</option>
-                    {utilityCompanies[paymentType].map((company) => (
-                      <option key={company.id} value={company.id}>
-                        {company.name}
-                      </option>
+          <div className="bg-white text-black p-4 px-6 pb-[6rem] rounded-t-3xl mt-4 flex-grow">
+            <h3 className="font-bold mb-4">VTU Payment</h3>
+            <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Payment Type
+                </label>
+                {showOptions ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    {paymentTypes.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => handlePaymentTypeSelect(type.value)}
+                        className={`flex items-center justify-center p-3 rounded-lg ${type.color} transition-all duration-300 transform hover:scale-105`}
+                      >
+                        <type.icon className="w-5 h-5 mr-2" />
+                        <span className="text-sm">{type.label}</span>
+                      </button>
                     ))}
-                  </select>
-                </div>
-              )}
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center p-3 rounded-lg bg-gray-100">
+                    <div className="flex items-center">
+                      {React.createElement(
+                        paymentTypes.find((t) => t.value == paymentType).icon,
+                        { className: "w-5 h-5 mr-2" },
+                      )}
+                      <span className="text-sm">
+                        {paymentTypes.find((t) => t.value == paymentType).label}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setShowOptions(true)}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      Change
+                    </button>
+                  </div>
+                )}
+              </div>
 
-              {['netflix', 'amazon', 'disneyplus', 'appletv', 'spotify'].includes(paymentType) ? (
-                <>
+              {paymentType && (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {['electricity', 'water'].includes(paymentType) && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Company
+                      </label>
+                      <select
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                        required
+                      >
+                        <option value="">Select a company</option>
+                        {utilityCompanies[paymentType].map((company) => (
+                          <option key={company.id} value={company.id}>
+                            {company.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {['netflix', 'amazon', 'disneyplus', 'appletv', 'spotify'].includes(paymentType) ? (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Package
+                        </label>
+                        <select
+                          name="package"
+                          value={formData.package}
+                          onChange={handleInputChange}
+                          className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                          required
+                        >
+                          <option value="">Select a package</option>
+                          {streamingPackages[paymentType].map((pkg) => (
+                            <option key={pkg.id} value={pkg.id}>
+                              {pkg.name} - ${pkg.price}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  ) : (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Account Number / Customer ID
+                      </label>
+                      <input
+                        type="text"
+                        name="accountNumber"
+                        value={formData.accountNumber}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
+                      Amount
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-2 text-gray-500">
+                        $
+                      </span>
+                      <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleInputChange}
+                        className="w-full p-2 pl-8 border rounded-md focus:ring-2 focus:ring-indigo-500 text-2xl"
+                        required
+                        readOnly={['netflix', 'amazon', 'disneyplus', 'appletv', 'spotify'].includes(paymentType)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description (Optional)
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="text"
+                      name="description"
+                      value={formData.description}
                       onChange={handleInputChange}
+                      placeholder="Add a note"
                       className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-                      required
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Package
-                    </label>
-                    <select
-                      name="package"
-                      value={formData.package}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-                      required
-                    >
-                      <option value="">Select a package</option>
-                      {streamingPackages[paymentType].map((pkg) => (
-                        <option key={pkg.id} value={pkg.id}>
-                          {pkg.name} - ${pkg.price}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </>
-              ) : (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Account Number / Customer ID
-                  </label>
-                  <input
-                    type="text"
-                    name="accountNumber"
-                    value={formData.accountNumber}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-                    required
-                  />
-                </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-lg font-semibold mt-6"
+                  >
+                    Pay Now
+                  </button>
+                </form>
               )}
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Amount
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleInputChange}
-                    className="w-full p-2 pl-8 border rounded-md focus:ring-2 focus:ring-indigo-500 text-2xl"
-                    required
-                    readOnly={['netflix', 'amazon', 'disneyplus', 'appletv', 'spotify'].includes(paymentType)}
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description (Optional)
-                </label>
-                <input
-                  type="text"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  placeholder="Add a note"
-                  className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-lg font-semibold mt-6"
-              >
-                Pay Now
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

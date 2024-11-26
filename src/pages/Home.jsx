@@ -28,12 +28,11 @@ import {
   ShoppingCart,
   CheckCircle,
 } from "lucide-react";
+import SuspendedAccountPage from "../components/Suspension.jsx";
 const BankingHomeScreen = () => {
   const { userData, loading, jwt } = useUserData(); // Access the user data and loading state
   const [DepositStatus, setDepositStatus] = useState("");
-  
-  
-  
+
   const services = [
     {
       icon: <Zap className="h-6 w-6" />,
@@ -114,37 +113,43 @@ const BankingHomeScreen = () => {
   return (
     <div className="flex flex-col h-screen mb-[5rem] bg-white text-white">
       <Header />
-      <div className="px-0">
-        <BalanceCard amount={userData ? userData.balance : 0} type={1} />
-      </div>
 
-      <div className=" mt-0  px-4 py-3   flex-grow">
-        <div className="bg-[#233547] shadow-lg  text-white rounded-3xl p-4">
-          <h2 className="text-lg font-medium mb-4" >Other Services</h2>
-          <div className="grid grid-cols-4 gap-4">
-            {services.map((service, index) => (
-              <Link
-                key={index}
-                to={`/pay`}
-                className="flex flex-col items-center justify-center gap-2"
-              >
-                <div
-                  className={`${service.bgColor} p-3 rounded-full text-black flex items-center justify-center`}
-                >
-                  {service.icon}
-                </div>
-                <span className="text-xs text-center text-gray-200">
-                  {service.label}
-                </span>
-              </Link>
-            ))}
+      {userData && userData.status == 1 ? (
+        <SuspendedAccountPage />
+      ) : (
+        <>
+          <div className="px-0">
+            <BalanceCard amount={userData ? userData.balance : 0} type={1} />
           </div>
-          <div className="mt-[2rem] py-5">
-            <TransactionHistory type={2} />
-          
+
+          <div className=" mt-0  px-4 py-3   flex-grow">
+            <div className="bg-[#233547] shadow-lg  text-white rounded-3xl p-4">
+              <h2 className="text-lg font-medium mb-4">Other Services</h2>
+              <div className="grid grid-cols-4 gap-4">
+                {services.map((service, index) => (
+                  <Link
+                    key={index}
+                    to={`/pay`}
+                    className="flex flex-col items-center justify-center gap-2"
+                  >
+                    <div
+                      className={`${service.bgColor} p-3 rounded-full text-black flex items-center justify-center`}
+                    >
+                      {service.icon}
+                    </div>
+                    <span className="text-xs text-center text-gray-200">
+                      {service.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-[2rem] py-5">
+                <TransactionHistory type={2} />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };
