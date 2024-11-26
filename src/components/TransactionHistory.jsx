@@ -217,7 +217,11 @@ const History = ({ type }) => {
                       : transaction.transfer_type.startsWith("vtu_")
                       ? transaction.transfer_type
                       : transaction.transfer_type === "internal"
+                      ? "P2P Transfer"
+                      : transaction.transfer_type === "interbank"
                       ? "Local Transfer"
+                      : transaction.transfer_type === "international"
+                      ? "International Transfer"
                       : `${transaction.transfer_type} Transfer`}
                   </p>
                   <p

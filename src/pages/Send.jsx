@@ -48,19 +48,19 @@ const Withdraw = () => {
   const transferTypes = [
     {
       value: "internal",
-      label: "Local Transfer",
+      label: "P2P",
       icon: Building2,
       color: "bg-blue-100",
     },
     {
       value: "interbank",
-      label: "Inter-bank Transfer",
+      label: "Local Transfer",
       icon: ArrowRightLeft,
       color: "bg-green-100",
     },
     {
       value: "international",
-      label: "Cross Border Transfer",
+      label: "International Transfer",
       icon: Globe2,
       color: "bg-purple-100",
     },
